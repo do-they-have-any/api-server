@@ -9,5 +9,19 @@
 
 <body>
     <h1>Do they have any…?</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Store</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+
+        <tr data-th-each="store : ${stores}">
+            <td data-th-text="${store.displayName}">Dave's Funky Discount Produce</td>
+            <td data-th-text="${store.address}">17 Market Street, Topeka, KS</td>
+        </tr>
+    </table>
 </body>
 </html>
