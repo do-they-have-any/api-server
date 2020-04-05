@@ -19,7 +19,7 @@
         </thead>
 
         <tr data-th-each="store : ${stores}">
-            <td data-th-text="${store.displayName}">Dave's Funky Discount Produce</td>
+            <td><a href="/store/0" data-th-href="@{/store/{storeId}(storeId=${store.id})}" data-th-text="${store.displayName}">Dave's Funky Discount Produce</a></td>
             <td data-th-text="${store.address}">17 Market Street, Topeka, KS</td>
         </tr>
     </table>
