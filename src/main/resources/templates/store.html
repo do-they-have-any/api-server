@@ -4,23 +4,30 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Do they have any…?</title>
+    <title data-th-text="#{store.title(${store.displayName})}">Do they have any…? - Dave's Funky Discount Produce</title>
 </head>
 
 <body>
     <h1 data-th-text="${store.displayName}">Dave's Funky Discount Produce</h1>
 
-    <p>Have you been inside <span data-th-text="${store.displayName}}">Dave's Funky Discount Produce</span> recently? Please tell us what you saw!</p>
+    <p data-th-text="#{store.report-prompt(${store.displayName})}">Have you been inside Dave's Funky Discount Produce recently? Please tell us what you saw!</p>
 
-    <h2>Recent shopping reports</h2>
+    <h2 data-th-text="#{store.inventory-report.title}">Inventory report</h2>
 
-    <table>
+    <table data-th-if="${inventoryReport}">
         <thead>
             <tr>
-                <th>Item</th>
-                <th>Availability</th>
+                <th data-th-text="#{store.inventory-report.header.item}">Grocery item</th>
+                <th data-th-text="#{store.inventory-report.header.availability}">Availability</th>
             </tr>
         </thead>
+
+        <tr data-th-each="entry : ${inventoryReport.availabilityByGroceryItem}">
+            <td data-th-text="#{|grocery-item.${entry.key}}|}">Flour</td>
+            <td data-th-text="#{|availability.${entry.value}}|}">Available</td>
+        </tr>
     </table>
+
+    <p data-th-unless="${inventoryReport}" data-th-text="#{store.no-recent-reports}">We don't have any recent shopping reports for this store. If you've been there lately, please tell us what you saw!</p>
 </body>
 </html>
