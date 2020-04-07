@@ -1,5 +1,6 @@
 package org.dotheyhaveany.server.store;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,11 @@ class StoreServiceTest {
 
     @Autowired
     private StoreService storeService;
+
+    @AfterEach
+    void tearDown() {
+        storeRepository.deleteAll();
+    }
 
     @Test
     void findAll() {

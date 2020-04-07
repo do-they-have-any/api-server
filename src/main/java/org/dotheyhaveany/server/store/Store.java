@@ -52,13 +52,12 @@ public class Store {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         final Store store = (Store) o;
-        return Objects.equals(id, store.id) &&
-                displayName.equals(store.displayName) &&
+        return displayName.equals(store.displayName) &&
                 address.equals(store.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, displayName, address);
+        return Objects.hash(displayName, address);
     }
 }
