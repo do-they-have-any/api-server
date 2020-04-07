@@ -29,6 +29,18 @@ public class Observation {
         this.availability = availability;
     }
 
+    public ShoppingReport getReport() {
+        return report;
+    }
+
+    public GroceryItem getGroceryItem() {
+        return groceryItem;
+    }
+
+    public ItemAvailability getAvailability() {
+        return availability;
+    }
+
     @Override
     public String toString() {
         return "Observation{" +
