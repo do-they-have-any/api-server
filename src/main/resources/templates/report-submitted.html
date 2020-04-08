@@ -1,0 +1,15 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title data-th-text="#{report-submitted.title(${store.displayName})}">Do they have any…? - Dave's Funky Discount Produce - Report submitted</title>
+</head>
+
+<body>
+    <h1 data-th-text="#{report-submitted.thanks}">Thank you!</h1>
+
+    <p data-th-utext="#{report-submitted.explanation(${store.displayName},@{/store/{storeId}(storeId=${store.id})})}">We've received your report and will incorporate it into our data for <a href="/store/0">Dave's Funky Discount Produce</a>. Thanks!</p>
+</body>
+</html>

@@ -10,7 +10,7 @@
 <body>
     <h1 data-th-text="${store.displayName}">Dave's Funky Discount Produce</h1>
 
-    <p data-th-text="#{store.report-prompt(${store.displayName})}">Have you been inside Dave's Funky Discount Produce recently? Please tell us what you saw!</p>
+    <p data-th-utext="#{store.report-prompt(${store.displayName},@{/store/{storeId}/report(storeId=${store.id})})}">Have you been inside Dave's Funky Discount Produce recently? Please <a href="/store/0/report">tell us what you saw!</a></p>
 
     <h2 data-th-text="#{store.inventory-report.title}">Inventory report</h2>
 
@@ -23,11 +23,11 @@
         </thead>
 
         <tr data-th-each="entry : ${inventoryReport.availabilityByGroceryItem}">
-            <td data-th-text="#{|grocery-item.${entry.key}}|}">Flour</td>
-            <td data-th-text="#{|availability.${entry.value}}|}">Available</td>
+            <td data-th-text="#{${'grocery-item.' + entry.key}}">Flour</td>
+            <td data-th-text="#{${'availability.' + entry.value}}">Available</td>
         </tr>
     </table>
 
-    <p data-th-unless="${inventoryReport}" data-th-text="#{store.no-recent-reports}">We don't have any recent shopping reports for this store. If you've been there lately, please tell us what you saw!</p>
+    <p data-th-unless="${inventoryReport}" data-th-utext="#{store.no-recent-reports(@{/store/{storeId}/report(storeId=${store.id})})}">We don't have any recent shopping reports for this store. If you've been there lately, please tell us what you saw!</p>
 </body>
 </html>

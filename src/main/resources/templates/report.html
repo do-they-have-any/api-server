@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title data-th-text="#{report.title(${store.displayName})}">Do they have any…? - Dave's Funky Discount Produce - Shopping report</title>
+</head>
+
+<body>
+    <h1 data-th-text="${store.displayName}">Dave's Funky Discount Produce</h1>
+
+    <form data-th-action="@{/store/{storeId}/report(storeId=${store.id})}" data-th-object="${reportForm}" method="post">
+        <input type="hidden" data-th-field="*{storeId}" />
+
+        <label data-th-for="ageInHours" data-th-text="#{report.age.prompt(${store.displayName})}">When did you visit Dave's Funky Discount Produce?</label>
+
+        <select data-th-field="*{ageInHours}">
+            <option data-th-each="age : ${agesInHours}" data-th-value="${age}" data-th-text="#{report.age.option(${age})}">Right now</option>
+        </select>
+
+        <br/>
+
+        <label data-th-for="perspective" data-th-text="#{report.perspective.prompt(${store.displayName})}">In what capacity did you visit Dave's Funky Discount Produce?</label>
+
+        <select data-th-field="*{perspective}">
+            <option data-th-each="perspective : ${perspectives}" data-th-value="${perspective}" data-th-text="#{${'report.perspective.option.' + perspective}}">As a shopper</option>
+        </select>
+
+        <p data-th-text="#{report.inventory.prompt}">What was in stock?</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Grocery item</th>
+                    <th>Availability</th>
+                </tr>
+
+                <tr data-th-each="item : ${groceryItems}">
+                    <td><label data-th-for="${'observations' + item}" data-th-text="#{${'grocery-item.' + item}}">Durian</label></td>
+                    <td>
+                        <select data-th-field="*{observations[__${item}__]}">
+                            <option data-th-each="availability : ${availabilities}" data-th-value="${availability}" data-th-text="#{${'availability.' + availability}}">Don't know</option>
+                        </select>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+
+        <input type="submit" data-th-value="#{report.submit}" value="Submit shopping report"/>
+    </form>
+</body>
+</html>
