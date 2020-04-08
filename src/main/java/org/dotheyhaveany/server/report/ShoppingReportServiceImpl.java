@@ -29,6 +29,7 @@ public class ShoppingReportServiceImpl implements ShoppingReportService {
         final ShoppingReport report = new ShoppingReport(store, currentTime, perspective);
 
         report.setObservations(observations.entrySet().stream()
+                .filter(entry -> entry.getValue() != ItemAvailability.UNKNOWN)
                 .map(entry -> new Observation(report, entry.getKey(), entry.getValue()))
                 .collect(Collectors.toSet()));
 
@@ -51,9 +52,8 @@ public class ShoppingReportServiceImpl implements ShoppingReportService {
 
         final Map<GroceryItem, ItemAvailability> availabilityByGroceryItem = new EnumMap<>(GroceryItem.class);
 
-        availabilityScores.forEach((groceryItem, scoresByAvailability) -> {
-            availabilityByGroceryItem.put(groceryItem, getMostLikelyAvailability(scoresByAvailability));
-        });
+        availabilityScores.forEach((groceryItem, scoresByAvailability) ->
+                availabilityByGroceryItem.put(groceryItem, getMostLikelyAvailability(scoresByAvailability)));
 
         return availabilityScores.isEmpty() ? Optional.empty() :
                 Optional.of(new InventoryReport(store, recentReports.get(0).getTimestamp(), availabilityByGroceryItem));

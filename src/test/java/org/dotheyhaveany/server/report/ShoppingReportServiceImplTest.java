@@ -59,6 +59,7 @@ class ShoppingReportServiceImplTest {
             final Map<GroceryItem, ItemAvailability> observations = new EnumMap<>(GroceryItem.class);
             observations.put(GroceryItem.FLOUR, ItemAvailability.IN_STOCK);
             observations.put(GroceryItem.ISOPROPYL_ALCOHOL, ItemAvailability.OUT_OF_STOCK);
+            observations.put(GroceryItem.TOILET_PAPER, ItemAvailability.UNKNOWN);
 
             reportService.saveReport(store, ShoppingReportPerspective.SHOPPER, observations, currentReportTimestamp);
         }
