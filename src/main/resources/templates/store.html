@@ -28,6 +28,8 @@
         </tr>
     </table>
 
+    <p data-th-if="${inventoryReport}" data-th-text="#{store.inventory-report.last-updated(${#dates.format(inventoryReport.lastUpdate)})}">Last updated April 7, 2020 22:13.</p>
+
     <p data-th-unless="${inventoryReport}" data-th-utext="#{store.no-recent-reports(@{/store/{storeId}/report(storeId=${store.id})})}">We don't have any recent shopping reports for this store. If you've been there lately, please tell us what you saw!</p>
 </body>
 </html>
