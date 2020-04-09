@@ -35,7 +35,9 @@ class ShoppingReportServiceImplTest {
     void saveReport() {
         final Store store = storeRepository.save(new Store("Test store", "Test address"));
 
-        final ShoppingReport savedReport = reportService.saveReport(store, ShoppingReportPerspective.SHOPPER,
+        final ShoppingReport savedReport = reportService.saveReport(store,
+                Instant.now(),
+                ShoppingReportPerspective.SHOPPER,
                 Collections.singletonMap(GroceryItem.FLOUR, ItemAvailability.IN_STOCK));
 
         assertNotNull(savedReport.getId());
@@ -61,7 +63,7 @@ class ShoppingReportServiceImplTest {
             observations.put(GroceryItem.ISOPROPYL_ALCOHOL, ItemAvailability.OUT_OF_STOCK);
             observations.put(GroceryItem.TOILET_PAPER, ItemAvailability.UNKNOWN);
 
-            reportService.saveReport(store, ShoppingReportPerspective.SHOPPER, observations, currentReportTimestamp);
+            reportService.saveReport(store, currentReportTimestamp, ShoppingReportPerspective.SHOPPER, observations);
         }
 
         {
@@ -70,7 +72,7 @@ class ShoppingReportServiceImplTest {
             observations.put(GroceryItem.YEAST, ItemAvailability.IN_STOCK);
             observations.put(GroceryItem.ISOPROPYL_ALCOHOL, ItemAvailability.LIMITED);
 
-            reportService.saveReport(store, ShoppingReportPerspective.SHOPPER, observations, staleReportTimestamp);
+            reportService.saveReport(store, staleReportTimestamp, ShoppingReportPerspective.SHOPPER, observations);
         }
 
         final Optional<InventoryReport> maybeReport = reportService.getInventoryReport(store);

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Collections;
 
 @Controller
@@ -44,7 +46,10 @@ public class ShoppingReportController {
     public ModelAndView post(final ShoppingReportForm reportForm) {
         final Store store = storeService.findById(reportForm.getStoreId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        reportService.saveReport(store, reportForm.getPerspective(), reportForm.getObservations());
+        reportService.saveReport(store,
+                Instant.now().minus(Duration.ofHours(reportForm.getAgeInHours())),
+                reportForm.getPerspective(),
+                reportForm.getObservations());
 
         return new ModelAndView("report-submitted", Collections.singletonMap("store", store));
     }

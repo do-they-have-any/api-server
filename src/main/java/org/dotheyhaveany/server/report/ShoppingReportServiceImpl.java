@@ -20,13 +20,8 @@ public class ShoppingReportServiceImpl implements ShoppingReportService {
     }
 
     @Override
-    public ShoppingReport saveReport(final Store store, final ShoppingReportPerspective perspective, final Map<GroceryItem, ItemAvailability> observations) {
-        return saveReport(store, perspective, observations, Instant.now());
-    }
-
-    // Visible for testing
-    ShoppingReport saveReport(final Store store, final ShoppingReportPerspective perspective, final Map<GroceryItem, ItemAvailability> observations, final Instant currentTime) {
-        final ShoppingReport report = new ShoppingReport(store, currentTime, perspective);
+    public ShoppingReport saveReport(final Store store, final Instant timestamp, final ShoppingReportPerspective perspective, final Map<GroceryItem, ItemAvailability> observations) {
+        final ShoppingReport report = new ShoppingReport(store, timestamp, perspective);
 
         report.setObservations(observations.entrySet().stream()
                 .filter(entry -> entry.getValue() != ItemAvailability.UNKNOWN)
