@@ -5,6 +5,8 @@ CREATE TABLE shopping_report (
     perspective CHAR(8) NOT NULL
 );
 
+CREATE INDEX ON shopping_report(store_id, timestamp);
+
 CREATE TABLE observation (
     shopping_report_id BIGINT NOT NULL REFERENCES shopping_report(id),
     grocery_item CHAR(32) NOT NULL,
